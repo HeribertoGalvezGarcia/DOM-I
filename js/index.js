@@ -37,6 +37,11 @@ const siteContent = {
   },
 };
 
-// Example: Update the img src for the logo
-let logo = document.getElementById("logo-img");
-logo.setAttribute('src', siteContent["nav"]["img-src"])
+function setImg(id, part, src) {
+  const node = document.getElementById(id);
+  node.setAttribute("src", siteContent[part][src]);
+}
+
+setImg("logo-img", "nav", "img-src");
+setImg("cta-img", "cta", "img-src");
+setImg("middle-img", "main-content", "middle-img-src");
