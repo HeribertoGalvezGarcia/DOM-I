@@ -77,3 +77,15 @@ setContent(".contact p:nth-of-type(2)", "contact", "phone");
 setContent(".contact p:nth-of-type(3)", "contact", "email");
 
 setContent("footer p", "footer", "copyright");
+
+const nav = document.querySelector("nav");
+const home = document.createElement("a");
+home.textContent = "Home";
+nav.prepend(home);
+const download = document.createElement("a");
+download.textContent = "Download";
+nav.append(download);
+
+for (const navNode of nav.children) {
+  navNode.style.color = "green";
+}
