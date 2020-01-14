@@ -37,6 +37,55 @@ const siteContent = {
   },
 };
 
-// Example: Update the img src for the logo
-let logo = document.getElementById("logo-img");
-logo.setAttribute('src', siteContent["nav"]["img-src"])
+function setImg(id, part, src) {
+  const node = document.getElementById(id);
+  node.setAttribute("src", siteContent[part][src]);
+}
+
+function setContent(selector, part, content) {
+  const node = document.querySelector(selector);
+  node.textContent = siteContent[part][content];
+}
+
+setImg("logo-img", "nav", "img-src");
+setImg("cta-img", "cta", "img-src");
+setImg("middle-img", "main-content", "middle-img-src");
+
+for (const i of Array(6).keys()) setContent(`nav a:nth-child(${i+1})`, "nav", `nav-item-${i+1}`);
+
+setContent(".cta h1", "cta", "h1");
+setContent(".cta button", "cta", "button");
+
+const mainContent = ["features", "about", "services", "product", "vision"];
+
+mainContent.forEach((part, i) => {
+  const parent = i < 2 ? "top" : "bottom";
+  const nth = i < 2 ? i : i - 2;
+  const selector = `.${parent}-content div:nth-of-type(${nth + 1})`;
+
+  setContent(`${selector} h4`, "main-content", `${part}-h4`);
+  setContent(`${selector} p`, "main-content", `${part}-content`);
+});
+
+setContent(".contact h4", "contact", "contact-h4");
+
+const contactContent = ["address", "phone", "email"];
+contactContent.forEach((part, i) => setContent(`.contact p:nth-of-type(${i+1})`, "contact", part));
+
+setContent("footer p", "footer", "copyright");
+
+const nav = document.querySelector("nav");
+const home = document.createElement("a");
+home.textContent = "Home";
+nav.prepend(home);
+const download = document.createElement("a");
+download.textContent = "Download";
+nav.append(download);
+
+for (const navNode of nav.children) {
+  navNode.style.color = "green";
+}
+
+document.querySelector(".cta button").addEventListener("click", () => {
+  document.querySelector("nav").style.flexDirection = "row-reverse";
+});
